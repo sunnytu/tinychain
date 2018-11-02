@@ -1,6 +1,10 @@
 # tinychain
 A mini blockchain implementation in C++14 构建迷你区块链——《深入浅出区块链》
 
+## Prepare Build Enviroment (Ubuntu 18) [add by sunny]
+* sudo apt-get install -y gcc-5 g++-5
+* sudo apt install -y cmake libboost-all-dev libcrypto++-dev libcrypto++-doc libcrypto++-utils libsqlite3-dev
+
 ## 简要说明 INTRODUNCTION
 tinychain是一个业余的项目，旨在为大家提供微型的简单易懂的供学习的代码。
 以下是涉及的一些基础技术：
