@@ -30,3 +30,6 @@ touch.sh
 *.out
 *.app
 .vscode/
+tinychain.layout
+
+bin/
