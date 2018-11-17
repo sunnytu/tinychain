@@ -65,7 +65,7 @@ void database::init(){
     log::info("database")<<"Initializing "<<db_name_;
     sqlite3pp::database db_conn{db_name_};
     try {
-        sqlite3pp::command cmd(db_conn, "create table if not EXISTS block ( \
+        sqlite3pp::command block_cmd(db_conn, "create table if not EXISTS block ( \
           height bigint primary KEY , \
           hash char(64) not null, \
           bits bigint, \
@@ -76,13 +76,13 @@ void database::init(){
           previous_block_hash CHAR (64), \
           nonce varchar(128) , \
           time_stamp bigint);");
-        cmd.execute();
+        block_cmd.execute();
 
-        sqlite3pp::command cmd2(db_conn, "create table if not EXISTS key_pairs( \
+        sqlite3pp::command keypairs_cmd(db_conn, "create table if not EXISTS key_pairs( \
           address char(64) primary key, \
           private_key BLOB NOT NULL, \
           account TEXT NOT NULL DEFAULT 'default');");
-        cmd2.execute();
+        keypairs_cmd.execute();
 
     } catch (std::exception& ex) {
         db_conn.disconnect();
@@ -104,7 +104,7 @@ void chain_database::push(const block& newblock) {
         << newblock.header_.hash << static_cast<long long int>(newblock.header_.difficulty) 
         << static_cast<long long int>(newblock.header_.timestamp);
 
-    log::debug("database")<<"chenhao2:"<< newblock.header_.hash;
+    log::debug("database")<<"push block:"<< newblock.header_.hash;
 
     cmd.execute();
     xct.commit();
