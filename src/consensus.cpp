@@ -56,12 +56,12 @@ bool miner::pow_once(block& new_block, address_t& addr) {
     uint64_t time_peroid = new_block.header_.timestamp - prev_block.header_.timestamp;
     log::info("consensus") << "block time :" << time_peroid <<" s";
 
-    if (time_peroid <= 10u) {
+    if (time_peroid <= 10u) { // less 10 seconds, difficult level add 9000
         new_block.header_.difficulty = prev_block.header_.difficulty + 9000;
-    } else {
-        if (prev_block.header_.difficulty <= 3000) {
+    } else { // more then 10 seconds
+        if (prev_block.header_.difficulty <= 3000) { // difficult must more then 3000
             new_block.header_.difficulty = prev_block.header_.difficulty + 9000;
-        } else {
+        } else { // difficult more then 3000, but time more then 10 seconds, let difficult level low then now difficult 3000
             new_block.header_.difficulty = prev_block.header_.difficulty - 3000;
         }
     }

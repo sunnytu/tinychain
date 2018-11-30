@@ -27,7 +27,7 @@ public:
     void create_genesis_block();
 
 protected:
-    const char* db_name_ = "tinychain.db";
+    const char* db_name_ = "tinychain.sqlite";
 };
 
 class chain_database: public database
