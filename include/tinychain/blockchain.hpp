@@ -79,8 +79,9 @@ public:
         
         //广播
         //ws_send(target_tx.to_json().toStyledString());
-
-        return root;
+        root["addr"] = addr;
+        root["amount"] = amount;
+        return root; // return new tx
     }
 
 private:

@@ -99,10 +99,11 @@ void database::init(){
 void chain_database::push(const block& newblock) {
 
     sqlite3pp::transaction xct(db_conn_);
-    sqlite3pp::command cmd(db_conn_, "INSERT INTO block (height, hash, bits, time_stamp) VALUES (?, ?, ?, ?)");
+    sqlite3pp::command cmd(db_conn_, "INSERT INTO block (height, hash, bits, time_stamp, nonce, transaction_count, previous_block_hash) VALUES (?, ?, ?, ?, ?, ?, ?)");
     cmd.binder() << static_cast<long long int>(newblock.header_.height) 
         << newblock.header_.hash << static_cast<long long int>(newblock.header_.difficulty) 
-        << static_cast<long long int>(newblock.header_.timestamp);
+        << static_cast<long long int>(newblock.header_.timestamp) << static_cast<long long int>(newblock.header_.nonce) << static_cast<long long int>(newblock.header_.tx_count)
+        << static_cast<sha256_t>(newblock.header_.prev_hash);
 
     log::debug("database")<<"push block:"<< newblock.header_.hash;
 
